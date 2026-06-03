@@ -1,0 +1,24 @@
+name: Sync World Cup data
+
+# Vercel Hobby cron only runs once per day, which is too coarse on match days.
+# This free GitHub Actions schedule pokes /api/sync every ~15 minutes.
+# Add two repo secrets (Settings → Secrets and variables → Actions):
+#   APP_URL      e.g. https://your-app.vercel.app   (no trailing slash)
+#   CRON_SECRET  same value as the Vercel env var
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger sync
+        run: |
+          curl -fsS -X POST "${APP_URL}/api/sync" \
+            -H "Authorization: Bearer ${CRON_SECRET}"
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}

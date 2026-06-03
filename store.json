@@ -1,0 +1,20 @@
+{
+  "assignments": {
+    "Dan": [
+      "Croatia",
+      "France"
+    ],
+    "Laura": [
+      "Argentina"
+    ]
+  },
+  "prizes": {
+    "first": 65,
+    "second": 30
+  },
+  "results": {
+    "first": null,
+    "second": null
+  },
+  "eliminated": []
+}

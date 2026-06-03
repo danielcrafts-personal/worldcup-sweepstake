@@ -1,0 +1,127 @@
+*{box-sizing:border-box}
+html,body{padding:0;margin:0}
+body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0a3528;color:#fff;min-height:100vh}
+a{color:inherit}
+
+header{background:linear-gradient(120deg,#06291f,#0f4a37);padding:16px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:2px solid #1c5b46;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+header h1{font-size:19px;margin:0;font-weight:800;letter-spacing:.3px}
+.btn{background:#ffd24a;color:#06291f;padding:8px 15px;border-radius:9px;text-decoration:none;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:.15s}
+.btn:hover{background:#ffdf70}
+main{padding:18px;max-width:1100px;margin:0 auto}
+
+.card{background:#0f4a37;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.2);border:1px solid #15543f}
+.card h2{margin:0 0 16px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#ffd24a;display:flex;align-items:center;gap:8px}
+.card h2 .sub{margin-left:auto;font-size:12px;font-weight:600;text-transform:none;letter-spacing:0;color:#cfe9dd}
+
+/* Flags (images from flagcdn) */
+.flag{width:1.75em;height:1.3em;object-fit:cover;border-radius:3px;vertical-align:-.28em;box-shadow:0 0 0 1px rgba(0,0,0,.3);background:#0006;flex-shrink:0;display:inline-block}
+.flag.lg{width:2.6em;height:1.95em}
+
+/* Winners banner */
+.winners{background:linear-gradient(135deg,#e4a011,#ffd24a);color:#06291f;border-radius:14px;padding:22px 24px;margin-bottom:18px;text-align:center;box-shadow:0 6px 22px rgba(228,160,17,.35)}
+.winners h2{margin:0 0 8px;font-size:23px}
+.winners p{margin:5px 0;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* Prizes */
+.prizes-row{display:flex;gap:14px;flex-wrap:wrap}
+.prize-box{flex:1;min-width:120px;background:#0a3528;border-radius:10px;padding:16px;text-align:center;border:1px solid #15543f}
+.prize-box .label{font-size:12px;opacity:.75;margin-bottom:6px}
+.prize-box .amount{font-size:28px;font-weight:800;color:#ffd24a}
+.prize-box.total .amount{color:#7cf0a8}
+
+/* Prize race / standings */
+.race-summary{background:#0a3528;border:1px solid #15543f;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:14px;font-weight:600}
+.race-summary b{color:#ffd24a}
+.standing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.standing{background:#0a3528;border-radius:12px;padding:15px;border-left:5px solid #2f9e57;border-top:1px solid #15543f;border-right:1px solid #15543f;border-bottom:1px solid #15543f}
+.standing.out{border-left-color:#8a4040;opacity:.7}
+.standing.gold{border-left-color:#ffd24a;background:linear-gradient(180deg,#135a40,#0a3528)}
+.standing.silver{border-left-color:#d4d4d4}
+.standing .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.standing .who{font-weight:800;font-size:16px}
+.pill{font-size:10.5px;font-weight:800;border-radius:20px;padding:4px 11px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.pill.in{background:#1f7a44;color:#d9ffe6}
+.pill.out{background:#6e2f2f;color:#ffd9d9}
+.pill.gold{background:#ffd24a;color:#06291f}
+.pill.silver{background:#d4d4d4;color:#06291f}
+.teamrow{display:flex;align-items:center;gap:9px;font-size:14px;padding:4px 0}
+.teamrow .ko{margin-left:auto;font-size:10px;font-weight:800;background:#6e2f2f;color:#ffd9d9;border-radius:4px;padding:1px 6px}
+.teamrow.elim{opacity:.45}
+.teamrow.elim .tname{text-decoration:line-through}
+.standing .count{font-size:12px;opacity:.7;margin-top:8px;border-top:1px dashed #1c5b46;padding-top:7px}
+
+/* Groups */
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.group-card{background:#0a3528;border-radius:10px;padding:13px;border:1px solid #15543f}
+.group-card h3{margin:0 0 9px;font-size:13px;color:#ffd24a;font-weight:800;letter-spacing:.5px}
+.group-team{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13.5px;border-bottom:1px solid #15543f}
+.group-team:last-child{border-bottom:none}
+.group-team.assigned{font-weight:700;color:#ffd24a}
+.group-team.elim .tname{text-decoration:line-through;opacity:.5}
+.group-team .who-tag{margin-left:auto;font-size:11px;font-weight:700;opacity:.85}
+
+/* Knockout bracket — stacked stages, each a responsive grid (no horizontal scroll) */
+.bracket-stages{display:flex;flex-direction:column;gap:18px}
+.bracket-stage h3{margin:0 0 10px;font-size:12px;color:#ffd24a;font-weight:800;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #15543f;padding-bottom:6px}
+.bracket-stage h3 .stage-count{color:#cfe9dd;opacity:.6;font-weight:600;margin-left:4px}
+.bracket-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+.ko-match{background:#0a3528;border:1px solid #15543f;border-radius:9px;padding:9px 11px}
+.ko-match .ko-date{font-size:10.5px;opacity:.6;margin-bottom:5px}
+.ko-side{display:flex;align-items:center;gap:8px;font-size:13.5px;padding:2px 0}
+.ko-side .score{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums}
+.ko-side.win{font-weight:800;color:#ffd24a}
+.ko-side .slot{opacity:.6;font-style:italic}
+.ko-status{font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-top:5px;opacity:.7}
+.ko-status.live{color:#7cf0a8;opacity:1;font-weight:800}
+
+/* Fixtures */
+.fixtures-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap}
+.fixtures-header h2{margin:0}
+select,input[type=text],input[type=password],input[type=number]{background:#0a3528;color:#fff;border:1px solid #2a7a5a;border-radius:7px;padding:8px 10px;font-size:13px;outline:none}
+select:focus,input:focus{border-color:#ffd24a}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;padding:8px;background:#0a3528;color:#ffd24a;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.5px}
+td{padding:8px;border-bottom:1px solid #15543f;vertical-align:middle}
+tr.highlight td{background:#155a40}
+tr:last-child td{border-bottom:none}
+.group-pill{background:#06291f;border-radius:5px;padding:2px 7px;font-size:11px;font-weight:800;color:#ffd24a}
+.cell-team{display:flex;align-items:center;gap:8px}
+.cell-team.elim .tname{text-decoration:line-through;opacity:.45}
+.cell-team .who-tag{font-size:10.5px;font-weight:800;color:#06291f;background:#ffd24a;border-radius:10px;padding:1px 7px;white-space:nowrap}
+.score-cell{text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* Settings */
+.settings-main{max-width:760px}
+.btn-primary{background:#ffd24a;color:#06291f;font-weight:700;border:none;border-radius:7px;padding:9px 18px;cursor:pointer;font-size:14px}
+.btn-primary:hover{background:#f5c400}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-danger{background:#c0392b;color:#fff;border:none;border-radius:7px;padding:7px 10px;font-size:12px;cursor:pointer}
+.btn-add{background:#1c5b46;color:#fff;border:none;border-radius:7px;padding:8px 14px;font-size:13px;cursor:pointer}
+.btn-add:hover{background:#2a7a5a}
+.btn-logout{background:transparent;color:#ffd24a;border:1px solid #ffd24a;border-radius:7px;font-size:12px;padding:6px 12px;cursor:pointer}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.row input,.row select{flex:1;width:100%}
+.field-label{font-size:12px;opacity:.7;display:block;margin-bottom:4px}
+.msg{font-size:13px;margin:8px 0 0;min-height:18px}
+.msg.ok{color:#4caf50}
+.msg.err{color:#ff6b6b}
+.hint{font-size:13px;opacity:.7;margin:0 0 12px}
+
+/* Knockouts editor */
+.ko-group{margin-bottom:14px}
+.ko-gtitle{font-size:12px;font-weight:800;color:#ffd24a;margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px}
+.ko-team{display:inline-flex;align-items:center;gap:7px;background:#0a3528;border:1px solid #2a7a5a;border-radius:22px;padding:6px 13px 6px 10px;margin:0 7px 7px 0;font-size:13px;cursor:pointer;user-select:none}
+.ko-team:hover{border-color:#ffd24a}
+.ko-team input{margin:0;cursor:pointer}
+.ko-team.checked{background:#5a2727;border-color:#8a4040;opacity:.85}
+.ko-team.checked .tname{text-decoration:line-through}
+
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:#ffd24a;color:#06291f;border-radius:8px;padding:10px 16px;font-weight:700;font-size:13px;z-index:100;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.toast.err{background:#c0392b;color:#fff}
+
+@media(max-width:520px){
+  header h1{font-size:15px}
+  .prize-box .amount{font-size:22px}
+  .groups-grid{grid-template-columns:1fr 1fr}
+}

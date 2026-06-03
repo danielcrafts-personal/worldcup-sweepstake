@@ -1,0 +1,24 @@
+{
+  "name": "worldcup-family-sweepstake",
+  "version": "1.0.0",
+  "private": true,
+  "description": "2026 FIFA World Cup family sweepstake — Next.js + Supabase + football-data.org live sync.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "seed": "node scripts/seed.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.5.0"
+  }
+}
