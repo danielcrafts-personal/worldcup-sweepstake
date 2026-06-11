@@ -7,7 +7,9 @@ export interface Fixture {
   match_no: number;
   stage: Stage;
   group_label: string | null;
-  match_date: string | null; // ISO yyyy-mm-dd
+  match_date: string | null; // ISO yyyy-mm-dd (placeholder until kickoff is synced)
+  kickoff: string | null; // ISO datetime (UTC) from the API
+  venue: string | null;
   home_slot: string | null; // placeholder label until the team is known
   away_slot: string | null;
   home_team: string | null;

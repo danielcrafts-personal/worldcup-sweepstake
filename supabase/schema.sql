@@ -7,6 +7,8 @@ create table if not exists fixtures (
   stage        text not null,                    -- GROUP | R32 | R16 | QF | SF | THIRD | FINAL
   group_label  text,
   match_date   date,
+  kickoff      timestamptz,                       -- real UTC kickoff (from the API)
+  venue        text,                              -- stadium (from the API, if provided)
   home_slot    text,                             -- placeholder label until team known
   away_slot    text,
   home_team    text,
@@ -18,6 +20,9 @@ create table if not exists fixtures (
   api_match_id bigint,
   updated_at   timestamptz not null default now()
 );
+-- For databases created before kickoff/venue existed:
+alter table fixtures add column if not exists kickoff timestamptz;
+alter table fixtures add column if not exists venue text;
 
 create table if not exists assignments (
   id     bigint generated always as identity primary key,

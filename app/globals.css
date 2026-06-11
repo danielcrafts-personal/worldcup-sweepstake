@@ -88,6 +88,10 @@ tr:last-child td{border-bottom:none}
 .cell-team{display:flex;align-items:center;gap:8px}
 .cell-team.elim .tname{text-decoration:line-through;opacity:.45}
 .cell-team .who-tag{font-size:10.5px;font-weight:800;color:#06291f;background:#ffd24a;border-radius:10px;padding:1px 7px;white-space:nowrap}
+.when-date{font-weight:600;white-space:nowrap}
+.when-time{font-size:11px;opacity:.7;margin-top:1px}
+.venue-cell{font-size:12px;opacity:.8;max-width:180px;white-space:normal;line-height:1.3}
+.ko-venue{font-size:11px;opacity:.7;margin:1px 0 4px}
 .score-cell{text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
 
 /* Settings */

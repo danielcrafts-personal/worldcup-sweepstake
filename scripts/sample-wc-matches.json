@@ -4,6 +4,7 @@
     {
       "id": 1001,
       "utcDate": "2026-06-13T16:00:00Z",
+      "venue": "SoFi Stadium, Los Angeles",
       "status": "FINISHED",
       "stage": "GROUP_STAGE",
       "group": "Group C",
@@ -14,6 +15,7 @@
     {
       "id": 1002,
       "utcDate": "2026-06-14T16:00:00Z",
+      "venue": "MetLife Stadium, New York",
       "status": "FINISHED",
       "stage": "GROUP_STAGE",
       "group": "Group L",
@@ -24,6 +26,7 @@
     {
       "id": 1003,
       "utcDate": "2026-06-15T16:00:00Z",
+      "venue": "Estadio Azteca, Mexico City",
       "status": "IN_PLAY",
       "stage": "GROUP_STAGE",
       "group": "Group A",
@@ -34,6 +37,7 @@
     {
       "id": 2001,
       "utcDate": "2026-06-28T16:00:00Z",
+      "venue": "AT&T Stadium, Dallas",
       "status": "FINISHED",
       "stage": "LAST_32",
       "group": null,
@@ -44,6 +48,7 @@
     {
       "id": 9001,
       "utcDate": "2026-07-19T19:00:00Z",
+      "venue": "MetLife Stadium, New York",
       "status": "FINISHED",
       "stage": "FINAL",
       "group": null,

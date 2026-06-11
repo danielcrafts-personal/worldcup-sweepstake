@@ -11,7 +11,16 @@ import type { Assignments, Fixture, Prizes, Results, TournamentData } from "./ty
 export type FixtureUpdate = Partial<Fixture> & { match_no: number };
 
 function seedToFixture(s: FixtureSeed): Fixture {
-  return { ...s, home_score: null, away_score: null, status: "SCHEDULED", winner: null, api_match_id: null };
+  return {
+    ...s,
+    kickoff: null,
+    venue: null,
+    home_score: null,
+    away_score: null,
+    status: "SCHEDULED",
+    winner: null,
+    api_match_id: null,
+  };
 }
 
 /** Read the legacy Express store.json (if present) to migrate initial data. */
@@ -43,6 +52,13 @@ interface DevStore {
 const DEV_FILE = path.join(process.cwd(), ".data", "store.json");
 
 function devRead(): DevStore {
+  // The JSON-file fallback is local-dev only. On Vercel the filesystem is
+  // read-only, so missing Supabase config must surface as a clear message.
+  if (process.env.VERCEL) {
+    throw new Error(
+      "Database not configured: set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel → Settings → Environment Variables, then redeploy."
+    );
+  }
   try {
     return JSON.parse(fs.readFileSync(DEV_FILE, "utf8"));
   } catch {

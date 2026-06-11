@@ -15,6 +15,7 @@ export interface ApiTeam { id: number | null; name: string | null; tla?: string 
 export interface ApiMatch {
   id: number;
   utcDate: string;
+  venue?: string | null;
   status: string;
   stage: string;
   group: string | null;
@@ -85,6 +86,8 @@ function buildUpdate(fixture: Fixture, m: ApiMatch): FixtureUpdate {
   return {
     match_no: fixture.match_no,
     api_match_id: m.id,
+    kickoff: m.utcDate ?? null,
+    venue: m.venue ?? null,
     home_team: home ?? fixture.home_team,
     away_team: away ?? fixture.away_team,
     home_score: m.score?.fullTime?.home ?? null,
