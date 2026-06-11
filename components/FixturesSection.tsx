@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { FlagImg } from "./FlagImg";
 import { fmtKickoffUK, kickoffSortKey } from "@/lib/format";
+import { venueFor } from "@/lib/venues";
 import type { Fixture } from "@/lib/types";
 
 export function FixturesSection({
@@ -84,7 +85,7 @@ export function FixturesSection({
                   <td>{teamCell(f.home_team)}</td>
                   <td className="score-cell">{score}</td>
                   <td>{teamCell(f.away_team)}</td>
-                  <td className="venue-cell">{f.venue || "—"}</td>
+                  <td className="venue-cell">{venueFor(f) || "—"}</td>
                 </tr>
               );
             })}

@@ -1,5 +1,6 @@
 import { FlagImg } from "./FlagImg";
 import { fmtKickoffUK } from "@/lib/format";
+import { venueFor } from "@/lib/venues";
 import { KNOCKOUT_STAGES, STAGE_LABELS } from "@/lib/tournament";
 import type { Fixture } from "@/lib/types";
 
@@ -44,13 +45,14 @@ export function Bracket({ fixtures, eliminated }: { fixtures: Fixture[]; elimina
                 const homeLost = m.status === "FINISHED" && m.winner != null && m.home_team != null && m.winner !== m.home_team;
                 const awayLost = m.status === "FINISHED" && m.winner != null && m.away_team != null && m.winner !== m.away_team;
                 const k = fmtKickoffUK(m.kickoff, m.match_date);
+                const venue = venueFor(m);
                 return (
                   <div className="ko-match" key={m.match_no}>
                     <div className="ko-date">
                       {k.date}
                       {k.time ? ` · ${k.time}` : ""} · M{m.match_no}
                     </div>
-                    {m.venue && <div className="ko-venue">📍 {m.venue}</div>}
+                    {venue && <div className="ko-venue">📍 {venue}</div>}
                     <Side team={m.home_team} slot={m.home_slot} win={m.winner != null && m.winner === m.home_team}
                           score={showScore ? m.home_score : null} dim={homeLost} />
                     <Side team={m.away_team} slot={m.away_slot} win={m.winner != null && m.winner === m.away_team}
