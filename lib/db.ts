@@ -6,7 +6,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { hasSupabase, supabaseAdmin } from "./supabase";
 import { DEFAULT_TITLE, GROUPS, TEAMS, buildFixtureSeeds, type FixtureSeed } from "./tournament";
-import type { Assignments, Fixture, Prizes, Results, TournamentData } from "./types";
+import type { Assignments, DayStat, Fixture, Prizes, Results, TournamentData, TrafficStats } from "./types";
+
+interface VisitRow {
+  day: string;
+  visitor_id: string;
+  hits: number;
+}
 
 export type FixtureUpdate = Partial<Fixture> & { match_no: number };
 
@@ -48,6 +54,7 @@ interface DevStore {
   prizes: Prizes;
   results: Results;
   eliminated: { team: string; manual: boolean }[];
+  visits?: VisitRow[];
 }
 const DEV_FILE = path.join(process.cwd(), ".data", "store.json");
 
@@ -278,4 +285,60 @@ export async function seedFixtures(): Promise<{ seeded: number }> {
     if (legacy.prizes.first || legacy.prizes.second) await savePrizes(legacy.prizes);
   }
   return { seeded: seeds.length };
+}
+
+// --- Traffic tracking ---------------------------------------------------------
+function today(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function aggregate(rows: VisitRow[]): TrafficStats {
+  const byDay = new Map<string, { ids: Set<string>; total: number }>();
+  const allIds = new Set<string>();
+  let allTotal = 0;
+  for (const r of rows) {
+    let e = byDay.get(r.day);
+    if (!e) byDay.set(r.day, (e = { ids: new Set(), total: 0 }));
+    e.ids.add(r.visitor_id);
+    e.total += r.hits;
+    allIds.add(r.visitor_id);
+    allTotal += r.hits;
+  }
+  const t = today();
+  const todayEntry = byDay.get(t);
+  const days: DayStat[] = [...byDay.entries()]
+    .map(([day, e]) => ({ day, unique: e.ids.size, total: e.total }))
+    .sort((a, b) => b.day.localeCompare(a.day))
+    .slice(0, 30);
+  return {
+    today: { unique: todayEntry?.ids.size || 0, total: todayEntry?.total || 0 },
+    allTime: { unique: allIds.size, total: allTotal },
+    days,
+  };
+}
+
+/** Record one page view for a visitor (increments today's row). */
+export async function recordVisit(visitorId: string): Promise<void> {
+  const day = today();
+  if (!hasSupabase()) {
+    const s = devRead();
+    s.visits = s.visits || [];
+    const row = s.visits.find((v) => v.day === day && v.visitor_id === visitorId);
+    if (row) row.hits += 1;
+    else s.visits.push({ day, visitor_id: visitorId, hits: 1 });
+    devWrite(s);
+    return;
+  }
+  const sb = supabaseAdmin();
+  const { data } = await sb.from("visits").select("hits").eq("day", day).eq("visitor_id", visitorId).maybeSingle();
+  const hits = (data?.hits || 0) + 1;
+  const { error } = await sb.from("visits").upsert({ day, visitor_id: visitorId, hits }, { onConflict: "day,visitor_id" });
+  if (error) throw error;
+}
+
+export async function getStats(): Promise<TrafficStats> {
+  if (!hasSupabase()) return aggregate(devRead().visits || []);
+  const { data, error } = await supabaseAdmin().from("visits").select("day, visitor_id, hits");
+  if (error) throw error;
+  return aggregate((data || []) as VisitRow[]);
 }

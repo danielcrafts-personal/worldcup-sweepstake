@@ -48,6 +48,14 @@ create table if not exists eliminated (
   manual boolean not null default false
 );
 
+-- Per-day visit counts (traffic / unique visitors), shown only in Settings.
+create table if not exists visits (
+  day        date not null,
+  visitor_id text not null,
+  hits       int  not null default 0,
+  primary key (day, visitor_id)
+);
+
 -- Lock the tables down. The app only ever reaches Supabase through Vercel API
 -- routes using the SERVICE ROLE key, which bypasses RLS. Enabling RLS with no
 -- policies means the anon/public key has no access even if it ever leaks.
@@ -55,3 +63,4 @@ alter table fixtures   enable row level security;
 alter table assignments enable row level security;
 alter table settings   enable row level security;
 alter table eliminated enable row level security;
+alter table visits     enable row level security;

@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { FlagImg } from "@/components/FlagImg";
-import type { TournamentData } from "@/lib/types";
+import { fmtDate } from "@/lib/format";
+import type { TournamentData, TrafficStats } from "@/lib/types";
 
 type Row = { id: number; name: string; team: string };
 type Note = { msg: string; err?: boolean };
@@ -22,6 +23,7 @@ export default function SettingsPage() {
   const [res2, setRes2] = useState("");
   const [koChecked, setKoChecked] = useState<Set<string>>(new Set());
   const [syncing, setSyncing] = useState(false);
+  const [stats, setStats] = useState<TrafficStats | null>(null);
 
   const [toast, setToast] = useState<Note | null>(null);
   const [msgs, setMsgs] = useState<Record<string, Note>>({});
@@ -50,6 +52,10 @@ export default function SettingsPage() {
     setRes1(t.results.first || "");
     setRes2(t.results.second || "");
     setKoChecked(new Set(t.eliminated));
+    fetch("/api/stats")
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setStats)
+      .catch(() => {});
   }
 
   useEffect(() => {
@@ -475,6 +481,49 @@ export default function SettingsPage() {
                 </button>
               </div>
               <Msg k="elim" />
+            </div>
+
+            {/* Traffic */}
+            <div className="card">
+              <h2>📊 Traffic</h2>
+              {!stats ? (
+                <p className="hint">Loading…</p>
+              ) : (
+                <>
+                  <div className="traffic-summary">
+                    <div>
+                      <span className="big">{stats.today.unique}</span> unique today
+                      <span className="muted"> · {stats.today.total} views</span>
+                    </div>
+                    <div className="hint">
+                      All-time: {stats.allTime.unique} unique visitor{stats.allTime.unique === 1 ? "" : "s"} ·{" "}
+                      {stats.allTime.total} views
+                    </div>
+                  </div>
+                  {stats.days.length === 0 ? (
+                    <p className="hint">No visits recorded yet.</p>
+                  ) : (
+                    <table className="traffic-table">
+                      <thead>
+                        <tr>
+                          <th>Day</th>
+                          <th>Unique</th>
+                          <th>Views</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {stats.days.map((d) => (
+                          <tr key={d.day}>
+                            <td>{fmtDate(d.day)}</td>
+                            <td>{d.unique}</td>
+                            <td>{d.total}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </>
+              )}
             </div>
 
             <div style={{ textAlign: "right" }}>

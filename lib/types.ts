@@ -32,6 +32,17 @@ export interface Results {
 /** person -> list of team names */
 export type Assignments = Record<string, string[]>;
 
+export interface DayStat {
+  day: string; // ISO yyyy-mm-dd
+  unique: number;
+  total: number;
+}
+export interface TrafficStats {
+  today: { unique: number; total: number };
+  allTime: { unique: number; total: number };
+  days: DayStat[]; // most recent first
+}
+
 /** The full payload the dashboard renders from. */
 export interface TournamentData {
   title: string;

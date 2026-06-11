@@ -5,6 +5,7 @@ import { PrizeRace } from "@/components/PrizeRace";
 import { GroupsView } from "@/components/GroupsView";
 import { Bracket } from "@/components/Bracket";
 import { FixturesSection } from "@/components/FixturesSection";
+import { VisitTracker } from "@/components/VisitTracker";
 import type { TournamentData } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -86,6 +87,7 @@ export default async function Home() {
         <a className="btn" href="/settings">⚙️ Settings</a>
       </header>
       <main>
+        <VisitTracker />
         {(t.results.first || t.results.second) && (
           <div className="winners">
             <h2>🏆 Tournament Results</h2>

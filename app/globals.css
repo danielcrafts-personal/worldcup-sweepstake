@@ -92,6 +92,15 @@ tr:last-child td{border-bottom:none}
 .when-time{font-size:11px;opacity:.7;margin-top:1px}
 .venue-cell{font-size:12px;opacity:.8;max-width:180px;white-space:normal;line-height:1.3}
 .ko-venue{font-size:11px;opacity:.7;margin:1px 0 4px}
+
+/* Traffic card (settings) */
+.traffic-summary{margin-bottom:10px}
+.traffic-summary .big{font-size:26px;font-weight:800;color:#ffd24a}
+.traffic-summary .muted{opacity:.7}
+.traffic-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;max-width:360px}
+.traffic-table th{text-align:left;color:#ffd24a;font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.5px;padding:5px 8px;border-bottom:1px solid #15543f}
+.traffic-table td{padding:5px 8px;border-bottom:1px solid #15543f}
+.traffic-table tr:last-child td{border-bottom:none}
 .score-cell{text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
 
 /* Settings */
