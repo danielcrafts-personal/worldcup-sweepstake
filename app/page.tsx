@@ -125,7 +125,7 @@ export default async function Home() {
         </div>
 
         <PrizeRace assignments={t.assignments} eliminated={t.eliminated} results={t.results} prizes={t.prizes} />
-        <GroupsView groups={t.groups} assignments={t.assignments} eliminated={t.eliminated} />
+        <GroupsView groups={t.groups} assignments={t.assignments} eliminated={t.eliminated} fixtures={groupFixtures} />
         <FixturesSection
           fixtures={groupFixtures}
           groups={Object.keys(t.groups)}

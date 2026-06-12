@@ -51,7 +51,7 @@ main{padding:18px;max-width:1100px;margin:0 auto}
 .standing .count{font-size:12px;opacity:.7;margin-top:8px;border-top:1px dashed #1c5b46;padding-top:7px}
 
 /* Groups */
-.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
 .group-card{background:#0a3528;border-radius:10px;padding:13px;border:1px solid #15543f}
 .group-card h3{margin:0 0 9px;font-size:13px;color:#ffd24a;font-weight:800;letter-spacing:.5px}
 .group-team{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13.5px;border-bottom:1px solid #15543f}
@@ -59,6 +59,18 @@ main{padding:18px;max-width:1100px;margin:0 auto}
 .group-team.assigned{font-weight:700;color:#ffd24a}
 .group-team.elim .tname{text-decoration:line-through;opacity:.5}
 .group-team .who-tag{margin-left:auto;font-size:11px;font-weight:700;opacity:.85}
+
+/* Group standings tables */
+.standings{width:100%;border-collapse:collapse;font-size:13px}
+.standings th{font-size:9.5px;text-transform:uppercase;letter-spacing:.3px;color:#ffd24a;font-weight:700;padding:4px 3px;text-align:center;border-bottom:1px solid #2a7a5a}
+.standings th.st-team-h{text-align:left}
+.standings td{padding:5px 3px;text-align:center;border-bottom:1px solid #15543f;white-space:nowrap}
+.standings tr:last-child td{border-bottom:none}
+.standings td.st-team{text-align:left;white-space:normal}
+.standings td.st-team .flag{vertical-align:-.25em;margin-right:5px}
+.standings td.st-team .who-tag{margin-left:5px;font-size:10px;font-weight:700;color:#ffd24a;opacity:.85;white-space:nowrap}
+.standings tr.elim td.st-team .tname{text-decoration:line-through;opacity:.5}
+.standings .pts{font-weight:800}
 
 /* Knockout bracket — stacked stages, each a responsive grid (no horizontal scroll) */
 .bracket-stages{display:flex;flex-direction:column;gap:18px}
@@ -136,5 +148,5 @@ tr:last-child td{border-bottom:none}
 @media(max-width:520px){
   header h1{font-size:15px}
   .prize-box .amount{font-size:22px}
-  .groups-grid{grid-template-columns:1fr 1fr}
+  .groups-grid{grid-template-columns:1fr}
 }
