@@ -17,10 +17,11 @@ export function FixturesSection({
   teamToPerson: Record<string, string>;
 }) {
   const [filter, setFilter] = useState("");
+  const [hideFinished, setHideFinished] = useState(false);
   const elimSet = new Set(eliminated);
   const assignedSet = new Set(Object.keys(teamToPerson));
-  const list = (filter ? fixtures.filter((f) => f.group_label === filter) : fixtures)
-    .slice()
+  const list = fixtures
+    .filter((f) => (!filter || f.group_label === filter) && (!hideFinished || f.status !== "FINISHED"))
     .sort(
       (a, b) =>
         kickoffSortKey(a.kickoff, a.match_date) - kickoffSortKey(b.kickoff, b.match_date) ||
@@ -42,14 +43,24 @@ export function FixturesSection({
     <div className="card">
       <div className="fixtures-header">
         <h2>📅 Group Fixtures</h2>
-        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-          <option value="">All Groups</option>
-          {groups.map((g) => (
-            <option key={g} value={g}>
-              Group {g}
-            </option>
-          ))}
-        </select>
+        <div className="fixtures-controls">
+          <label className="toggle">
+            <input
+              type="checkbox"
+              checked={hideFinished}
+              onChange={(e) => setHideFinished(e.target.checked)}
+            />
+            Hide finished
+          </label>
+          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="">All Groups</option>
+            {groups.map((g) => (
+              <option key={g} value={g}>
+                Group {g}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div style={{ overflowX: "auto" }}>
         <table>
@@ -74,7 +85,7 @@ export function FixturesSection({
                   : "vs";
               const when = fmtKickoffUK(f.kickoff, f.match_date);
               return (
-                <tr key={f.match_no} className={hl ? "highlight" : ""}>
+                <tr key={f.match_no} className={f.status === "FINISHED" ? "finished" : hl ? "highlight" : ""}>
                   <td>
                     <div className="when-date">{when.date}</div>
                     {when.time && <div className="when-time">{when.time}</div>}

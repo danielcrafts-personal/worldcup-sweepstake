@@ -89,12 +89,18 @@ main{padding:18px;max-width:1100px;margin:0 auto}
 /* Fixtures */
 .fixtures-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap}
 .fixtures-header h2{margin:0}
+.fixtures-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.fixtures-controls .toggle{display:inline-flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;user-select:none;white-space:nowrap}
+.fixtures-controls .toggle input{cursor:pointer;accent-color:#ffd24a;width:15px;height:15px}
 select,input[type=text],input[type=password],input[type=number]{background:#0a3528;color:#fff;border:1px solid #2a7a5a;border-radius:7px;padding:8px 10px;font-size:13px;outline:none}
 select:focus,input:focus{border-color:#ffd24a}
 table{width:100%;border-collapse:collapse;font-size:13.5px}
 th{text-align:left;padding:8px;background:#0a3528;color:#ffd24a;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.5px}
 td{padding:8px;border-bottom:1px solid #15543f;vertical-align:middle}
 tr.highlight td{background:#155a40}
+tr.finished td{background:#2a2e2c;color:#93a09a}
+tr.finished .who-tag{opacity:.55}
+tr.finished .flag{opacity:.7}
 tr:last-child td{border-bottom:none}
 .group-pill{background:#06291f;border-radius:5px;padding:2px 7px;font-size:11px;font-weight:800;color:#ffd24a}
 .cell-team{display:flex;align-items:center;gap:8px}
