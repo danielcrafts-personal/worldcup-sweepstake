@@ -83,6 +83,7 @@ main{padding:18px;max-width:1100px;margin:0 auto}
 .ko-side .score{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums}
 .ko-side.win{font-weight:800;color:#ffd24a}
 .ko-side .slot{opacity:.6;font-style:italic}
+.ko-side .who-tag{font-size:9.5px;font-weight:800;color:#06291f;background:#ffd24a;border-radius:8px;padding:0 6px;line-height:16px;white-space:nowrap}
 .ko-status{font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-top:5px;opacity:.7}
 .ko-status.live{color:#7cf0a8;opacity:1;font-weight:800}
 

@@ -52,14 +52,27 @@ const NAME_MAP: Record<string, string> = {
   "Bosnia-Herzegovina": "Bosnia and Herzegovina", "Bosnia and Herzegovina": "Bosnia and Herzegovina",
 };
 
-const TEAM_SET = new Set(TEAMS);
+// Canonical key: lowercase, diacritics + punctuation stripped, so spelling
+// variants (accents, apostrophe styles, "and"/"&", casing, spacing) all match.
+function canon(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+const CANON_LOOKUP: Map<string, string> = (() => {
+  const m = new Map<string, string>();
+  for (const t of TEAMS) m.set(canon(t), t);
+  for (const [alias, our] of Object.entries(NAME_MAP)) m.set(canon(alias), our);
+  return m;
+})();
 
 export function normalizeTeam(name: string | null | undefined): string | null {
   if (!name) return null;
   const n = name.trim();
-  if (NAME_MAP[n]) return NAME_MAP[n];
-  if (TEAM_SET.has(n)) return n;
-  return n; // unknown spelling — keep it so it still displays; extend NAME_MAP
+  return CANON_LOOKUP.get(canon(n)) ?? n; // fall back to the raw name if unknown
 }
 
 function mapStatus(s: string): FixtureStatus {

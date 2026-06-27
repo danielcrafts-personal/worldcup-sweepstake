@@ -4,8 +4,8 @@ import { venueFor } from "@/lib/venues";
 import { KNOCKOUT_STAGES, STAGE_LABELS } from "@/lib/tournament";
 import type { Fixture } from "@/lib/types";
 
-function Side({ team, slot, win, score, dim }: {
-  team: string | null; slot: string | null; win: boolean; score: number | null; dim: boolean;
+function Side({ team, slot, win, score, dim, person }: {
+  team: string | null; slot: string | null; win: boolean; score: number | null; dim: boolean; person?: string;
 }) {
   return (
     <div className={`ko-side${win ? " win" : ""}`} style={dim ? { opacity: 0.5 } : undefined}>
@@ -13,6 +13,7 @@ function Side({ team, slot, win, score, dim }: {
         <>
           <FlagImg team={team} />
           <span className="tname">{team}</span>
+          {person && <span className="who-tag">{person}</span>}
         </>
       ) : (
         <span className="slot">{slot}</span>
@@ -22,8 +23,13 @@ function Side({ team, slot, win, score, dim }: {
   );
 }
 
-export function Bracket({ fixtures, eliminated }: { fixtures: Fixture[]; eliminated: string[] }) {
-  const elimSet = new Set(eliminated);
+export function Bracket({
+  fixtures,
+  teamToPerson,
+}: {
+  fixtures: Fixture[];
+  teamToPerson: Record<string, string>;
+}) {
   const ko = fixtures.filter((f) => f.stage !== "GROUP");
   if (!ko.length) return null;
 
@@ -54,9 +60,11 @@ export function Bracket({ fixtures, eliminated }: { fixtures: Fixture[]; elimina
                     </div>
                     {venue && <div className="ko-venue">📍 {venue}</div>}
                     <Side team={m.home_team} slot={m.home_slot} win={m.winner != null && m.winner === m.home_team}
-                          score={showScore ? m.home_score : null} dim={homeLost} />
+                          score={showScore ? m.home_score : null} dim={homeLost}
+                          person={m.home_team ? teamToPerson[m.home_team] : undefined} />
                     <Side team={m.away_team} slot={m.away_slot} win={m.winner != null && m.winner === m.away_team}
-                          score={showScore ? m.away_score : null} dim={awayLost} />
+                          score={showScore ? m.away_score : null} dim={awayLost}
+                          person={m.away_team ? teamToPerson[m.away_team] : undefined} />
                     {m.status === "IN_PLAY" && <div className="ko-status live">● Live</div>}
                     {m.status === "FINISHED" && m.winner && <div className="ko-status">{m.winner} advance</div>}
                   </div>

@@ -132,7 +132,7 @@ export default async function Home() {
           eliminated={t.eliminated}
           teamToPerson={teamToPerson}
         />
-        <Bracket fixtures={t.fixtures} eliminated={t.eliminated} />
+        <Bracket fixtures={t.fixtures} teamToPerson={teamToPerson} />
       </main>
     </>
   );
