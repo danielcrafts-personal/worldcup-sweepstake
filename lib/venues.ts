@@ -1,7 +1,8 @@
-// 2026 World Cup venues (FIFA city-stadium names) from the published schedule.
-// football-data.org's free tier omits the venue field, so the app falls back to
-// this static map. Group games are keyed by the (sorted) team pair; knockout
-// games by match number (73-104). Auto-generated — do not edit by hand.
+// 2026 World Cup static schedule (venues + kickoff times) from the published
+// fixture list. football-data.org's free tier omits venues, and some games may
+// not match by name, so the app uses this as a reliable fallback for both venue
+// and kickoff. Group games keyed by the (sorted) team pair; knockouts by match
+// number. Auto-generated — do not edit by hand.
 import type { Fixture } from "./types";
 
 export const GROUP_VENUES: Record<string, string> = {
@@ -114,12 +115,136 @@ export const KO_VENUES: Record<number, string> = {
   "104": "New York/New Jersey Stadium"
 };
 
-/** Best venue for a fixture: the API value if present, else the static map. */
+export const GROUP_KICKOFFS: Record<string, string> = {
+  "Mexico|South Africa": "2026-06-11T19:00:00Z",
+  "Czechia|South Korea": "2026-06-12T02:00:00Z",
+  "Bosnia and Herzegovina|Canada": "2026-06-12T19:00:00Z",
+  "Paraguay|United States": "2026-06-13T01:00:00Z",
+  "Qatar|Switzerland": "2026-06-13T19:00:00Z",
+  "Brazil|Morocco": "2026-06-13T22:00:00Z",
+  "Haiti|Scotland": "2026-06-14T01:00:00Z",
+  "Australia|Türkiye": "2026-06-14T04:00:00Z",
+  "Curaçao|Germany": "2026-06-14T17:00:00Z",
+  "Japan|Netherlands": "2026-06-14T20:00:00Z",
+  "Ecuador|Ivory Coast": "2026-06-14T23:00:00Z",
+  "Sweden|Tunisia": "2026-06-15T02:00:00Z",
+  "Cape Verde|Spain": "2026-06-15T16:00:00Z",
+  "Belgium|Egypt": "2026-06-15T19:00:00Z",
+  "Saudi Arabia|Uruguay": "2026-06-15T22:00:00Z",
+  "Iran|New Zealand": "2026-06-16T01:00:00Z",
+  "France|Senegal": "2026-06-16T19:00:00Z",
+  "Iraq|Norway": "2026-06-16T22:00:00Z",
+  "Algeria|Argentina": "2026-06-17T01:00:00Z",
+  "Austria|Jordan": "2026-06-17T04:00:00Z",
+  "DR Congo|Portugal": "2026-06-17T17:00:00Z",
+  "Croatia|England": "2026-06-17T20:00:00Z",
+  "Ghana|Panama": "2026-06-17T23:00:00Z",
+  "Colombia|Uzbekistan": "2026-06-18T02:00:00Z",
+  "Czechia|South Africa": "2026-06-18T16:00:00Z",
+  "Bosnia and Herzegovina|Switzerland": "2026-06-18T19:00:00Z",
+  "Canada|Qatar": "2026-06-18T22:00:00Z",
+  "Mexico|South Korea": "2026-06-19T01:00:00Z",
+  "Australia|United States": "2026-06-19T19:00:00Z",
+  "Morocco|Scotland": "2026-06-19T22:00:00Z",
+  "Brazil|Haiti": "2026-06-20T00:30:00Z",
+  "Paraguay|Türkiye": "2026-06-20T03:00:00Z",
+  "Netherlands|Sweden": "2026-06-20T17:00:00Z",
+  "Germany|Ivory Coast": "2026-06-20T20:00:00Z",
+  "Curaçao|Ecuador": "2026-06-21T00:00:00Z",
+  "Japan|Tunisia": "2026-06-21T04:00:00Z",
+  "Saudi Arabia|Spain": "2026-06-21T16:00:00Z",
+  "Belgium|Iran": "2026-06-21T19:00:00Z",
+  "Cape Verde|Uruguay": "2026-06-21T22:00:00Z",
+  "Egypt|New Zealand": "2026-06-22T01:00:00Z",
+  "Argentina|Austria": "2026-06-22T17:00:00Z",
+  "France|Iraq": "2026-06-22T21:00:00Z",
+  "Norway|Senegal": "2026-06-23T00:00:00Z",
+  "Algeria|Jordan": "2026-06-23T03:00:00Z",
+  "Portugal|Uzbekistan": "2026-06-23T17:00:00Z",
+  "England|Ghana": "2026-06-23T20:00:00Z",
+  "Croatia|Panama": "2026-06-23T23:00:00Z",
+  "Colombia|DR Congo": "2026-06-24T02:00:00Z",
+  "Canada|Switzerland": "2026-06-24T19:00:00Z",
+  "Bosnia and Herzegovina|Qatar": "2026-06-24T19:00:00Z",
+  "Brazil|Scotland": "2026-06-24T22:00:00Z",
+  "Haiti|Morocco": "2026-06-24T22:00:00Z",
+  "Czechia|Mexico": "2026-06-25T01:00:00Z",
+  "South Africa|South Korea": "2026-06-25T01:00:00Z",
+  "Curaçao|Ivory Coast": "2026-06-25T20:00:00Z",
+  "Ecuador|Germany": "2026-06-25T20:00:00Z",
+  "Japan|Sweden": "2026-06-25T23:00:00Z",
+  "Netherlands|Tunisia": "2026-06-25T23:00:00Z",
+  "Türkiye|United States": "2026-06-26T02:00:00Z",
+  "Australia|Paraguay": "2026-06-26T02:00:00Z",
+  "France|Norway": "2026-06-26T19:00:00Z",
+  "Iraq|Senegal": "2026-06-26T19:00:00Z",
+  "Cape Verde|Saudi Arabia": "2026-06-27T00:00:00Z",
+  "Spain|Uruguay": "2026-06-27T00:00:00Z",
+  "Egypt|Iran": "2026-06-27T03:00:00Z",
+  "Belgium|New Zealand": "2026-06-27T03:00:00Z",
+  "England|Panama": "2026-06-27T21:00:00Z",
+  "Croatia|Ghana": "2026-06-27T21:00:00Z",
+  "Colombia|Portugal": "2026-06-27T23:30:00Z",
+  "DR Congo|Uzbekistan": "2026-06-27T23:30:00Z",
+  "Algeria|Austria": "2026-06-28T02:00:00Z",
+  "Argentina|Jordan": "2026-06-28T02:00:00Z"
+};
+
+export const KO_KICKOFFS: Record<number, string> = {
+  "73": "2026-06-28T19:00:00Z",
+  "74": "2026-06-29T20:30:00Z",
+  "75": "2026-06-30T01:00:00Z",
+  "76": "2026-06-29T17:00:00Z",
+  "77": "2026-06-30T21:00:00Z",
+  "78": "2026-06-30T17:00:00Z",
+  "79": "2026-07-01T01:00:00Z",
+  "80": "2026-07-01T16:00:00Z",
+  "81": "2026-07-02T00:00:00Z",
+  "82": "2026-07-01T20:00:00Z",
+  "83": "2026-07-02T23:00:00Z",
+  "84": "2026-07-02T19:00:00Z",
+  "85": "2026-07-03T03:00:00Z",
+  "86": "2026-07-03T22:00:00Z",
+  "87": "2026-07-04T01:30:00Z",
+  "88": "2026-07-03T18:00:00Z",
+  "89": "2026-07-04T21:00:00Z",
+  "90": "2026-07-04T17:00:00Z",
+  "91": "2026-07-05T20:00:00Z",
+  "92": "2026-07-06T00:00:00Z",
+  "93": "2026-07-06T19:00:00Z",
+  "94": "2026-07-07T00:00:00Z",
+  "95": "2026-07-07T16:00:00Z",
+  "96": "2026-07-07T20:00:00Z",
+  "97": "2026-07-09T20:00:00Z",
+  "98": "2026-07-10T19:00:00Z",
+  "99": "2026-07-11T21:00:00Z",
+  "100": "2026-07-12T01:00:00Z",
+  "101": "2026-07-14T19:00:00Z",
+  "102": "2026-07-15T19:00:00Z",
+  "103": "2026-07-18T21:00:00Z",
+  "104": "2026-07-19T19:00:00Z"
+};
+
+function groupKey(f: Fixture): string | null {
+  return f.home_team && f.away_team ? [f.home_team, f.away_team].sort().join("|") : null;
+}
+
+/** Venue: the synced API value if present, else the static map. */
 export function venueFor(f: Fixture): string | null {
   if (f.venue) return f.venue;
   if (f.stage === "GROUP") {
-    if (!f.home_team || !f.away_team) return null;
-    return GROUP_VENUES[[f.home_team, f.away_team].sort().join("|")] ?? null;
+    const k = groupKey(f);
+    return k ? GROUP_VENUES[k] ?? null : null;
   }
   return KO_VENUES[f.match_no] ?? null;
+}
+
+/** Kickoff (ISO UTC): the synced API value if present, else the static schedule. */
+export function scheduledKickoff(f: Fixture): string | null {
+  if (f.kickoff) return f.kickoff;
+  if (f.stage === "GROUP") {
+    const k = groupKey(f);
+    return k ? GROUP_KICKOFFS[k] ?? null : null;
+  }
+  return KO_KICKOFFS[f.match_no] ?? null;
 }

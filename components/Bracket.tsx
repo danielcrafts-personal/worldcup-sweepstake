@@ -1,6 +1,6 @@
 import { FlagImg } from "./FlagImg";
 import { fmtKickoffUK } from "@/lib/format";
-import { venueFor } from "@/lib/venues";
+import { scheduledKickoff, venueFor } from "@/lib/venues";
 import { KNOCKOUT_STAGES, STAGE_LABELS } from "@/lib/tournament";
 import type { Fixture } from "@/lib/types";
 
@@ -50,7 +50,7 @@ export function Bracket({
                 const showScore = m.status !== "SCHEDULED" && m.home_score != null;
                 const homeLost = m.status === "FINISHED" && m.winner != null && m.home_team != null && m.winner !== m.home_team;
                 const awayLost = m.status === "FINISHED" && m.winner != null && m.away_team != null && m.winner !== m.away_team;
-                const k = fmtKickoffUK(m.kickoff, m.match_date);
+                const k = fmtKickoffUK(scheduledKickoff(m), m.match_date);
                 const venue = venueFor(m);
                 return (
                   <div className="ko-match" key={m.match_no}>

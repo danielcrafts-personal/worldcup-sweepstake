@@ -267,7 +267,12 @@ export default function SettingsPage() {
     setSyncing(false);
     if (res.ok) {
       showToast("Synced ✓");
-      setMsg("sync", `Updated ${d.updated} fixtures · ${d.eliminated} team(s) out.`);
+      const um: { home: string; away: string }[] = d.unmatched || [];
+      let msg = `Updated ${d.updated} fixtures · ${d.eliminated} team(s) out.`;
+      if (um.length) {
+        msg += ` ⚠️ Couldn't match ${um.length}: ` + um.map((u) => `${u.home} v ${u.away}`).join("; ");
+      }
+      setMsg("sync", msg, um.length > 0);
       await load();
     } else setMsg("sync", d.error || "Sync failed (is FOOTBALL_DATA_TOKEN set?).", true);
   }

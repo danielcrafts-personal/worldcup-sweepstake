@@ -217,7 +217,14 @@ export function deriveResults(fixtures: Fixture[]): Results {
 export function computeSync(apiMatches: ApiMatch[], fixtures: Fixture[]) {
   const updates = mapApiToFixtureUpdates(apiMatches, fixtures);
   const next = withUpdates(fixtures, updates);
-  return { updates, eliminated: deriveEliminated(next), results: deriveResults(next) };
+  // Diagnostic: API matches with a recognised stage that didn't map to any
+  // fixture (usually a team-name spelling we haven't mapped). Raw names so we
+  // can see exactly what the API sent.
+  const mappedIds = new Set(updates.map((u) => u.api_match_id).filter((x): x is number => x != null));
+  const unmatched = apiMatches
+    .filter((m) => STAGE_MAP[m.stage] && !mappedIds.has(m.id))
+    .map((m) => ({ home: m.homeTeam?.name ?? "?", away: m.awayTeam?.name ?? "?", stage: m.stage }));
+  return { updates, eliminated: deriveEliminated(next), results: deriveResults(next), unmatched };
 }
 
 export async function fetchWorldCupMatches(): Promise<ApiMatch[]> {

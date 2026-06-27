@@ -34,7 +34,7 @@ async function run(req: Request) {
       apiMatches = await fetchWorldCupMatches();
     }
     const fixtures = await getFixtures();
-    const { updates, eliminated, results } = computeSync(apiMatches, fixtures);
+    const { updates, eliminated, results, unmatched } = computeSync(apiMatches, fixtures);
     await applyFixtureUpdates(updates);
     await setAutoEliminated(eliminated);
     if (results.first || results.second) await saveResults(results);
@@ -44,6 +44,7 @@ async function run(req: Request) {
       updated: updates.length,
       eliminated: eliminated.length,
       results,
+      unmatched,
     });
   } catch (e) {
     return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 502 });

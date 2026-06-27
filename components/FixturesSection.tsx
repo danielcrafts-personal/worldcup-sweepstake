@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { FlagImg } from "./FlagImg";
 import { fmtKickoffUK, kickoffSortKey } from "@/lib/format";
-import { venueFor } from "@/lib/venues";
+import { scheduledKickoff, venueFor } from "@/lib/venues";
 import type { Fixture } from "@/lib/types";
 
 export function FixturesSection({
@@ -24,7 +24,7 @@ export function FixturesSection({
     .filter((f) => (!filter || f.group_label === filter) && (!hideFinished || f.status !== "FINISHED"))
     .sort(
       (a, b) =>
-        kickoffSortKey(a.kickoff, a.match_date) - kickoffSortKey(b.kickoff, b.match_date) ||
+        kickoffSortKey(scheduledKickoff(a), a.match_date) - kickoffSortKey(scheduledKickoff(b), b.match_date) ||
         a.match_no - b.match_no
     );
 
@@ -83,7 +83,7 @@ export function FixturesSection({
                 f.status !== "SCHEDULED" && f.home_score != null
                   ? `${f.home_score}–${f.away_score}`
                   : "vs";
-              const when = fmtKickoffUK(f.kickoff, f.match_date);
+              const when = fmtKickoffUK(scheduledKickoff(f), f.match_date);
               return (
                 <tr key={f.match_no} className={f.status === "FINISHED" ? "finished" : hl ? "highlight" : ""}>
                   <td>
