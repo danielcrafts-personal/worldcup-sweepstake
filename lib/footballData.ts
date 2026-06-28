@@ -48,7 +48,7 @@ const NAME_MAP: Record<string, string> = {
   USA: "United States", "United States": "United States", "United States of America": "United States",
   "IR Iran": "Iran", Iran: "Iran",
   "Congo DR": "DR Congo", "DR Congo": "DR Congo", "Democratic Republic of the Congo": "DR Congo",
-  "Cabo Verde": "Cape Verde", "Cape Verde": "Cape Verde",
+  "Cabo Verde": "Cape Verde", "Cape Verde": "Cape Verde", "Cape Verde Islands": "Cape Verde",
   "Bosnia-Herzegovina": "Bosnia and Herzegovina", "Bosnia and Herzegovina": "Bosnia and Herzegovina",
 };
 
